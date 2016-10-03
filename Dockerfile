@@ -1,6 +1,14 @@
 FROM registry.access.redhat.com/rhel7.1
 MAINTAINER Casey Lee <casey.lee@stelligent.com>
 
+# Setup yum repo
+COPY files/CentOS.repo /etc/yum.repos.d/CentOS.repo
+RUN subscription-manager config --rhsm.manage_repos=0
+RUN rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-7
+
+# Setup base tools
+RUN yum install -y git
+
 ENV JAVA_VERSION 8u31
 ENV JAVA_BUILD_VERSION b13
 ENV JENKINS_VERSION 2.62
@@ -34,6 +42,6 @@ RUN mkdir /home/jenkins/.jenkins
 VOLUME /home/jenkins/.jenkins
 WORKDIR /home/jenkins
 
-COPY jenkins-slave.sh /usr/local/bin/jenkins-slave.sh
+COPY files/jenkins-slave.sh /usr/local/bin/jenkins-slave.sh
 
 ENTRYPOINT ["/usr/local/bin/jenkins-slave.sh"]
