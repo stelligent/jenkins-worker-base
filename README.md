@@ -30,3 +30,7 @@ Run the following to push the image to the ECR repo:
 ```
 docker push 324320755747.dkr.ecr.us-west-2.amazonaws.com/jenkins-worker-base
 ```
+
+# Credit
+* https://github.com/jenkinsci/docker-jnlp-slave
+* https://github.com/jenkinsci/docker-slave
